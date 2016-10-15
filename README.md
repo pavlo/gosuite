@@ -32,7 +32,7 @@ func (s *MyTestSuite) TearDown() {
  
 Then add one or more test methods to it, prefixing them with `GST` prefix that stands for **Go Suite Test**:
 
-```
+```go
 func (s *MyTestSuite) GSTMyFirstTestCase(t *testing.T) {
     if !someJob {
         t.Fail("Unexpected failure!")
