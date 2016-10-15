@@ -1,8 +1,9 @@
 package gosuite
 
 import (
-	"gopkg.in/tylerb/is.v1"
 	"testing"
+
+	"gopkg.in/tylerb/is.v1"
 )
 
 func TestIt(t *testing.T) {

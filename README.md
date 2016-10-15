@@ -110,6 +110,23 @@ func (s *Suite) TestFooMethod(t *testing.T) {
 
 ```
 
+Running it with `go test -v` would emit this:
+
+```
+> go test -v
+
+=== RUN   TestIt
+=== RUN   TestIt/GSTFirstTestMethod
+=== RUN   TestIt/GSTSecondTestMethod
+--- PASS: TestIt (0.00s)
+    --- PASS: TestIt/GSTFirstTestMethod (0.00s)
+    --- PASS: TestIt/GSTSecondTestMethod (0.00s)
+PASS
+ok  	github.com/pavlo/gosuite	0.009s
+Success: Tests passed.
+```
+
+
 ## License
 
 `Go Suite` is released under the [MIT License](http://www.opensource.org/licenses/MIT).
