@@ -86,7 +86,8 @@ func (s *Suite) TearDown() {
 }
 
 func TestIt(t *testing.T) {
-	gosuite.Run(t, &Suite{Is: is.New(s.t)})
+    s := &Suite{Is: is.New(s.t)}
+	gosuite.Run(t, s)
 	
 	s.Equal(1, s.setUpSuiteCalledTimes)
 	s.Equal(1, s.tearDownSuiteCalledTimes)
