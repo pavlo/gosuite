@@ -1,12 +1,12 @@
 /*
-GoSuite package provides a simple and tiny tool that brings the support of test suites to Go 1.7 Subtests addition to "testing".
+gosuite package provides a simple and tiny tool that brings the support of test suites to Go 1.7 Subtests addition to "testing".
 
 A test suite is an abstraction that allows you to group certain test cases together as well as allowing you to perform setup/teardown
 logic for each of test cases as well as the setup/teardown stuff for the suite itself.
 
 This is useful, for instance, in cases where you need to set up database schema before your suite as well as truncate the database
 tables before each test case so each of them is run against an empty database.
- */
+*/
 package gosuite
 
 import (
