@@ -1,3 +1,12 @@
+/*
+GoSuite package provides a simple and tiny tool that brings the support of test suites to Go 1.7 Subtests addition to "testing".
+
+A test suite is an abstraction that allows you to group certain test cases together as well as allowing you to perform setup/teardown
+logic for each of test cases as well as the setup/teardown stuff for the suite itself.
+
+This is useful, for instance, in cases where you need to set up database schema before your suite as well as truncate the database
+tables before each test case so each of them is run against an empty database.
+ */
 package gosuite
 
 import (
@@ -6,10 +15,9 @@ import (
 	"testing"
 )
 
-// SuiteTestMethodPrefix specifies the prefix each test case method in a suite should have. This is the marker, the `Run` method will use to figure out whether to run this particular case method or not
 const suiteTestMethodPrefix = "Test"
 
-// TestSuite an interface that describes a test suite
+// TestSuite is an interface where you define suite and test case preparation and tear down logic.
 type TestSuite interface {
 	// SetUpSuite is called once before the very first test in suite runs
 	SetUpSuite()
@@ -24,13 +32,15 @@ type TestSuite interface {
 	TearDown()
 }
 
-// Run - runs the suite:
-// 1. Calls `SetUpSuite`
-// 2. Seeks for any methods that have `Test` prefix, for each of them it:
-// 2a) Calls `SetUp`
-// 2b) Calls the method itself
-// 2c) Calls `TearDown`
-// 3. Calls `TearDownSuite`
+/*
+Run sets up the suite, runs its test cases and tears it down:
+    1. Calls `suite.SetUpSuite`
+    2. Seeks for any methods that have `Test` prefix, for each of them it:
+      a. Calls `SetUp`
+      b. Calls the test method itself
+      c. Calls `TearDown`
+    3. Calls `suite.TearDownSuite`
+*/
 func Run(t *testing.T, suite TestSuite) {
 	suite.SetUpSuite()
 	defer suite.TearDownSuite()
