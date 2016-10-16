@@ -1,4 +1,8 @@
 # Go Suite
+
+[![Build Status](https://semaphoreci.com/api/v1/pavlikus/gosuite/branches/master/badge.svg)](https://semaphoreci.com/pavlikus/gosuite) [![codecov](https://codecov.io/gh/pavlo/gosuite/branch/master/graph/badge.svg)](https://codecov.io/gh/pavlo/gosuite)
+
+
 The support for test suites for Golang 1.7 and later.
  
 Golang 1.7 featured [Subtests](https://golang.org/pkg/testing/) that allowed you to group tests in order to share common setup and teardown logic. While that was a great addition to the `testing` package, it was a bit clunky syntactically. The GoSuite package leverages Golang's 1.7 Subtests feature, defines a simple `TestSuite` interface and runs test cases inside of them keeping setup/teardown logic for the whole suite and for single cases in place.
