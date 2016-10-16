@@ -51,7 +51,7 @@ func TestIt(t *testing.T) {
 
 ## Complete Example
 
-The complete example is shown to help you to see the whole thing on the same page. Note, it leverages the [Is](https://github.com/tylerb/is) package for assertions... the package is great though indeed it is not required to use with Go Suite. *Note though, it demonstrates a slick technique making the assertion methods available on the suite itself!* 
+The complete example is shown to help you to see the whole thing on the same page. Note, it leverages the [Is](https://github.com/tylerb/is) package for assertions... the package is great though indeed it is not required to use with Go Suite. *The exmple however demonstrates a slick technique making the assertion methods available on the suite itself!* 
 
 ```go
 
