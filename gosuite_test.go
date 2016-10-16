@@ -7,7 +7,7 @@ import (
 )
 
 func TestIt(t *testing.T) {
-	s := &Suite{}
+	s := &Suite{Is: is.New(t)}
 	Run(t, s)
 
 	s.Equal(1, s.setUpSuiteCalledTimes)
@@ -24,8 +24,7 @@ type Suite struct {
 	tearDownUpCalledTimes    int
 }
 
-func (s *Suite) SetUpSuite(t *testing.T) {
-	s.Is = is.New(t)
+func (s *Suite) SetUpSuite() {
 	s.setUpSuiteCalledTimes++
 }
 
@@ -41,20 +40,16 @@ func (s *Suite) TearDown() {
 	s.tearDownUpCalledTimes++
 }
 
-func (s *Suite) GSTFirstTestMethod(t *testing.T) {
+func (s *Suite) TestFirstTestMethod(t *testing.T) {
 	s.Equal(1, s.setUpSuiteCalledTimes)
 	s.Equal(0, s.tearDownSuiteCalledTimes)
 	s.Equal(1, s.setUpCalledTimes)
 	s.Equal(0, s.tearDownUpCalledTimes)
 }
 
-func (s *Suite) GSTSecondTestMethod(t *testing.T) {
+func (s *Suite) TestSecondTestMethod(t *testing.T) {
 	s.Equal(1, s.setUpSuiteCalledTimes)
 	s.Equal(0, s.tearDownSuiteCalledTimes)
 	s.Equal(2, s.setUpCalledTimes)
 	s.Equal(1, s.tearDownUpCalledTimes)
-}
-
-func (s *Suite) TestFooMethod(t *testing.T) {
-	t.Fatal("Should not be called as it does not start with GST prefix!")
 }

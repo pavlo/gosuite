@@ -7,12 +7,12 @@ import (
 )
 
 // SuiteTestMethodPrefix specifies the prefix each test case method in a suite should have. This is the marker, the `Run` method will use to figure out whether to run this particular case method or not
-const SuiteTestMethodPrefix = "GST" // stands for GoSuiteTest
+const suiteTestMethodPrefix = "Test"
 
 // TestSuite an interface that describes a test suite
 type TestSuite interface {
 	// SetUpSuite is called once before the very first test in suite runs
-	SetUpSuite(t *testing.T)
+	SetUpSuite()
 
 	// TearDownSuite is called once after thevery last test in suite runs
 	TearDownSuite()
@@ -26,19 +26,19 @@ type TestSuite interface {
 
 // Run - runs the suite:
 // 1. Calls `SetUpSuite`
-// 2. Seeks for any methods that have `SuiteTestMethodPrefix` prefix, for each of them it:
+// 2. Seeks for any methods that have `Test` prefix, for each of them it:
 // 2a) Calls `SetUp`
 // 2b) Calls the method itself
 // 2c) Calls `TearDown`
 // 3. Calls `TearDownSuite`
 func Run(t *testing.T, suite TestSuite) {
-	suite.SetUpSuite(t)
+	suite.SetUpSuite()
 	defer suite.TearDownSuite()
 
 	suiteType := reflect.TypeOf(suite)
 	for i := 0; i < suiteType.NumMethod(); i++ {
 		m := suiteType.Method(i)
-		if strings.HasPrefix(m.Name, SuiteTestMethodPrefix) {
+		if strings.HasPrefix(m.Name, suiteTestMethodPrefix) {
 			t.Run(m.Name, func(t *testing.T) {
 				suite.SetUp()
 				defer suite.TearDown()

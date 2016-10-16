@@ -14,7 +14,7 @@ type MyTestSuite struct {
 }
 
 // SetUpSuite is called once before the very first test in suite runs
-func (s *MyTestSuite) SetUpSuite(t *testing.T) {
+func (s *MyTestSuite) SetUpSuite() {
 }
 
 // TearDownSuite is called once after thevery last test in suite runs
@@ -30,10 +30,10 @@ func (s *MyTestSuite) TearDown() {
 }
 ```
  
-Then add one or more test methods to it, prefixing them with `GST` prefix that stands for **Go Suite Test**:
+Then add one or more test methods to it, prefixing them with `Test` prefix:
 
 ```go
-func (s *MyTestSuite) GSTMyFirstTestCase(t *testing.T) {
+func (s *MyTestSuite) TestMyFirstTestCase(t *testing.T) {
     if !someJob {
         t.Fail("Unexpected failure!")
     }
@@ -55,6 +55,8 @@ The complete example is shown to help you to see the whole thing on the same pag
 
 ```go
 
+import gosuite
+
 type Suite struct {
 	*is.Is
 	setUpSuiteCalledTimes    int
@@ -63,8 +65,7 @@ type Suite struct {
 	tearDownUpCalledTimes    int
 }
 
-func (s *Suite) SetUpSuite(t *testing.T) {
-	s.Is = is.New(t)
+func (s *Suite) SetUpSuite() {
 	s.setUpSuiteCalledTimes++
 }
 
@@ -81,8 +82,7 @@ func (s *Suite) TearDown() {
 }
 
 func TestIt(t *testing.T) {
-    s := &Suite{}
-	Run(t, s)
+	Run(t, &Suite{Is: is.New(s.t)})
 	
 	s.Equal(1, s.setUpSuiteCalledTimes)
 	s.Equal(1, s.tearDownSuiteCalledTimes)
@@ -90,22 +90,18 @@ func TestIt(t *testing.T) {
 	s.Equal(2, s.tearDownUpCalledTimes)
 }
 
-func (s *Suite) GSTFirstTestMethod(t *testing.T) {
+func (s *Suite) TestFirstTestMethod(t *testing.T) {
 	s.Equal(1, s.setUpSuiteCalledTimes)
 	s.Equal(0, s.tearDownSuiteCalledTimes)
 	s.Equal(1, s.setUpCalledTimes)
 	s.Equal(0, s.tearDownUpCalledTimes)
 }
 
-func (s *Suite) GSTSecondTestMethod(t *testing.T) {
+func (s *Suite) TestSecondTestMethod(t *testing.T) {
 	s.Equal(1, s.setUpSuiteCalledTimes)
 	s.Equal(0, s.tearDownSuiteCalledTimes)
 	s.Equal(2, s.setUpCalledTimes)
 	s.Equal(1, s.tearDownUpCalledTimes)
-}
-
-func (s *Suite) TestFooMethod(t *testing.T) {
-	t.Fatal("Should not be called as it does not start with GST prefix!")
 }
 
 ```
@@ -116,11 +112,11 @@ Running it with `go test -v` would emit this:
 > go test -v
 
 === RUN   TestIt
-=== RUN   TestIt/GSTFirstTestMethod
-=== RUN   TestIt/GSTSecondTestMethod
+=== RUN   TestIt/TestFirstTestMethod
+=== RUN   TestIt/TestSecondTestMethod
 --- PASS: TestIt (0.00s)
-    --- PASS: TestIt/GSTFirstTestMethod (0.00s)
-    --- PASS: TestIt/GSTSecondTestMethod (0.00s)
+    --- PASS: TestIt/TestFirstTestMethod (0.00s)
+    --- PASS: TestIt/TestSecondTestMethod (0.00s)
 PASS
 ok  	github.com/pavlo/gosuite	0.009s
 Success: Tests passed.
