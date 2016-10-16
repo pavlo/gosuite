@@ -1,5 +1,5 @@
 /*
-Package gosuite package provides a simple and tiny tool that brings the support of test suites to Go 1.7 Subtests addition to "testing".
+Package gosuite provides a simple and tiny tool that brings the support of test suites to Go 1.7 Subtests addition to "testing".
 
 A test suite is an abstraction that allows you to group certain test cases together as well as allowing you to perform setup/teardown
 logic for each of test cases as well as the setup/teardown stuff for the suite itself.
