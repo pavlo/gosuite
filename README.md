@@ -80,7 +80,10 @@ The complete example is shown to help you to see the whole thing on the same pag
 
 ```go
 
-import gosuite
+import (
+  "testing"
+  "github.com/pavlo/gosuite"
+)
 
 type Suite struct {
 	*is.Is
