@@ -53,6 +53,27 @@ func TestIt(t *testing.T) {
 }
 ```
 
+## Installation
+
+To install Go Suite, use `go get`:
+
+```
+go get github.com/pavlo/gosuite
+```
+
+The import the `pavlo/gosuite` package into your code like this:
+
+```go
+package yours
+
+import (
+  "testing"
+  "github.com/pavlo/gosuite"
+)
+
+...
+```
+
 ## Complete Example
 
 The complete example is shown to help you to see the whole thing on the same page. Note, it leverages the [Is](https://github.com/tylerb/is) package for assertions... the package is great though indeed it is not required to use with Go Suite. *The example however demonstrates a slick technique making the assertion methods available on the suite itself!* 
